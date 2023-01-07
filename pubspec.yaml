@@ -1,7 +1,7 @@
-name: pipeline
+name: pipeline_plus
 description: A Pipeline allows you to pass data through a series of pipes to perform a sequence of operations with the data.
 version: 1.0.0
-repository: https://github.com/aydinfatih/pipeline
+repository: https://github.com/aydinfatih/pipeline_plus
 
 environment:
   sdk: '>=2.12.0 <3.0.0'

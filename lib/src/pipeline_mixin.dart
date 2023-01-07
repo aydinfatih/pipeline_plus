@@ -1,4 +1,4 @@
-import 'package:pipeline/pipeline.dart';
+import 'package:pipeline_plus/pipeline_plus.dart';
 
 mixin PipelineMixin {
   Pipeline pipeThrough({

@@ -63,7 +63,7 @@ class Pipeline {
         }
       });
 
-     return callback(_data);
+      return callback(_data);
     } catch (exception) {
       if (_onFailure != null) {
         return _onFailure!(_data, exception);

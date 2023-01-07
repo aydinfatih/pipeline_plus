@@ -1,4 +1,4 @@
-# Pipeline
+# pipeline_plus
 A Pipeline allows you to pass data through a series of pipes to perform a sequence of operations with the data. Each pipe is a callable piece of code: A class method, a function. Since each pipe operates on the data in isolation (the pipes don't know or care about each other), then that means you can easily compose complex workflows out of reusable actions that are also very easy to test because they aren't interdependent.
 
 >Each pipe in the process must retrieve and return the same type of data.
@@ -8,7 +8,7 @@ A Pipeline allows you to pass data through a series of pipes to perform a sequen
 A simple usage example:
 
 ```dart
-import 'package:pipeline/pipeline.dart';
+import 'package:pipeline_plus/pipeline_plus.dart';
 
 var pipeline = Pipeline()
 ..send(data: User())
@@ -37,7 +37,7 @@ class User with PipelineMixin {}
 ```
 
 ```dart
-import 'package:pipeline/pipeline.dart';
+import 'package:pipeline_plus/pipeline_plus.dart';
 
 var userPipeline = User().pipeThrough(
   method: 'handle',
