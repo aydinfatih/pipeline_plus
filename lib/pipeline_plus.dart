@@ -6,5 +6,6 @@
 /// easy to test because they aren't interdependent.
 library pipeline_plus;
 
+export 'src/pipe.dart';
 export 'src/pipeline_base.dart';
 export 'src/pipeline_mixin.dart';
