@@ -12,22 +12,30 @@ class Pipeline {
   Function(dynamic data, dynamic exception)? _onFailure;
 
   /// Set the data being sent through the pipeline.
-  void send({required dynamic data}) {
+  void send({
+    required dynamic data,
+  }) {
     _data = data;
   }
 
   /// Set the list of pipes.
-  void through({required List pipes}) {
+  void through({
+    required List pipes,
+  }) {
     _pipes = pipes;
   }
 
   /// Push additional pipes onto the pipeline.
-  void pipe({required List pipes}) {
+  void pipe({
+    required List pipes,
+  }) {
     _pipes.addAll(pipes);
   }
 
   /// Run the pipeline with a final destination callback.
-  Future<dynamic> then({required Function(dynamic data) callback}) async {
+  Future<dynamic> then({
+    required Function(dynamic data) callback,
+  }) async {
     try {
       await Future.forEach(_pipes, (pipe) async {
         if (pipe is Function) {
@@ -53,7 +61,9 @@ class Pipeline {
   }
 
   /// Set callback to be executed on failure pipeline.
-  void onFailure({required Function(dynamic data, dynamic exception) callback}) {
+  void onFailure({
+    required Function(dynamic data, dynamic exception) callback,
+  }) {
     _onFailure = callback;
   }
 }
