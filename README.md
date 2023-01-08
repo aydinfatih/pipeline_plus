@@ -1,7 +1,16 @@
 # pipeline_plus
-A Pipeline allows you to pass data through a series of pipes to perform a sequence of operations with the data. Each pipe is a callable piece of code: A class method, a function. Since each pipe operates on the data in isolation (the pipes don't know or care about each other), then that means you can easily compose complex workflows out of reusable actions that are also very easy to test because they aren't interdependent.
 
->Each pipe in the process must retrieve and return the same type of data.
+[![platform](https://img.shields.io/badge/Platform-Flutter-02569B?logo=flutter)](https://flutter.dev)
+[![platform](https://img.shields.io/badge/Platform-Dart-02569B?logo=dart)](https://dart.dev)
+[![pub package](https://img.shields.io/pub/v/pipeline_plus.svg?label=pipeline_plus&color=02569B)](https://pub.dev/packages/pipeline_plus)
+[![license](https://img.shields.io/github/license/aydinfatih/pipeline_plus?color=02569B)](https://opensource.org/licenses/BSD-3-Clause)
+
+A Pipeline allows you to pass data through a series of pipes to perform a
+sequence of operations with the data. Each pipe is a callable piece of code: A
+class method, a function. Since each pipe operates on the data in isolation (the
+pipes don't know or care about each other), then that means you can easily
+compose complex workflows out of reusable actions that are also very easy to
+test because they aren't interdependent.
 
 ## Usage
 
@@ -12,7 +21,6 @@ import 'package:pipeline_plus/pipeline_plus.dart';
 
 var pipeline = Pipeline()
 ..send(data: User())
-..via(method: 'handle')
 ..onFailure(callback: (passable, exception) {
   // do something
 })
@@ -40,7 +48,6 @@ class User with PipelineMixin {}
 import 'package:pipeline_plus/pipeline_plus.dart';
 
 var userPipeline = User().pipeThrough(
-  method: 'handle',
   pipes: [
     RegisterUserService(),
     AddMemberToTeamService(),
@@ -50,16 +57,15 @@ var userPipeline = User().pipeThrough(
     },
     SendWelcomeEmailService(),
   ],
-  positionalArguments: [],
-  namedArguments: {},
 );
 
 ```
 
 ### Sample pipe
 ```dart
-class SendWelcomeEmailService {
-  Future<dynamic> handle(User user) async {
+class SendWelcomeEmailService implements Pipe<User> {
+  @override
+  Future<User> handle(User user) async {
     print('The welcome email is being sent.');
     user.welcomeEmailIsSent = true;
 
@@ -96,14 +102,6 @@ Push additional pipes onto the pipeline.
         AdditionalService(),
     ],
 )
-```
-## via
-Set the method to call on the pipes.
-You can pass if the pipe accepts positional arguments other than data.
-You can pass if the pipe accepts named arguments other than data.
->Note: The data variable is passed to the pipe independently of these variables.
-```dart
-..via(method: 'handle', positionalArguments: [], namedArguments: {})
 ```
 ## onFailure
 Set callback to be executed on failure pipeline.
