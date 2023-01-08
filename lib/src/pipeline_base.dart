@@ -1,4 +1,4 @@
-import 'dart:mirrors';
+import 'package:pipeline_plus/src/pipe.dart';
 
 /// Checks if you are awesome. Spoiler: you are.
 class Pipeline {
@@ -51,15 +51,9 @@ class Pipeline {
     try {
       await Future.forEach(_pipes, (pipe) async {
         if (pipe is Function) {
-          _data = Function.apply(pipe, [_data, ..._positionalArguments], _namedArguments);
-        } else {
-          var reflected = reflect(pipe);
-          if (reflected.hasReflectee) {
-            if (reflected.type.instanceMembers.containsKey(Symbol(_method))) {
-              var result = reflected.invoke(Symbol(_method), [_data, ..._positionalArguments], _namedArguments);
-              _data = await result.reflectee;
-            }
-          }
+          _data = await Function.apply(pipe, [_data]);
+        } else if (pipe is Pipe) {
+          _data = await Function.apply(pipe.handle, [_data]);
         }
       });
 
