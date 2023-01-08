@@ -9,7 +9,6 @@ mixin PipelineMixin {
   }) {
     return Pipeline()
       ..send(data: this)
-      ..via(method: method, positionalArguments: positionalArguments, namedArguments: namedArguments)
       ..through(pipes: pipes);
   }
 }

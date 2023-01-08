@@ -2,16 +2,6 @@ import 'package:pipeline_plus/src/pipe.dart';
 
 /// Checks if you are awesome. Spoiler: you are.
 class Pipeline {
-  /// The method to call on each pipe.
-  /// If pipe is a function, it is not called.
-  String _method = 'handle';
-
-  /// The list of positional arguments
-  List<dynamic> _positionalArguments = [];
-
-  /// The map of positional arguments
-  Map<Symbol, dynamic> _namedArguments = {};
-
   /// The list of pipes
   List _pipes = [];
 
@@ -34,16 +24,6 @@ class Pipeline {
   /// Push additional pipes onto the pipeline.
   void pipe({required List pipes}) {
     _pipes.addAll(pipes);
-  }
-
-  /// Set the method to call on the pipes.
-  /// You can pass if the pipe accepts positional arguments other than data.
-  /// You can pass if the pipe accepts named arguments other than data.
-  /// Note: The data variable is passed to the pipe independently of these variables.
-  void via({required String method, List<dynamic> positionalArguments = const [], Map<Symbol, dynamic> namedArguments = const <Symbol, dynamic>{}}) {
-    _method = method;
-    _positionalArguments = positionalArguments;
-    _namedArguments = namedArguments;
   }
 
   /// Run the pipeline with a final destination callback.
